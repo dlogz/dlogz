@@ -1,7 +1,5 @@
-'use strict'
-
-import { ClientSide } from '@frontend/app/Clientside'
-import { trpc } from '@frontend/app/trpc'
+import { ClientSide } from './Clientside'
+import { trpc } from './trpc'
 
 export default async function Home() {
   const response = await trpc.hello.query({})

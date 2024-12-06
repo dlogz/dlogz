@@ -1,7 +1,7 @@
-'use strict'
+'use client'
 
 import { useEffect, useState } from 'react'
-import { trpc } from '@frontend/app/trpc'
+import { trpc } from './trpc'
 
 export function ClientSide() {
   const [greeting, setGreeting] = useState('')

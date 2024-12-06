@@ -1,8 +1,8 @@
 {
-  "name": "backend",
+  "name": "@dlogz/backend",
   "version": "0.0.1",
   "description": "Nestjs backend",
-  "author": "Fernando dos Santos",
+  "author": "Anshudhar Kumar Singh",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
