@@ -10,11 +10,7 @@ export default function Home() {
     <div className="flex flex-col">
       <Nav />
       <div className="flex flex-col pt-10">
-        {address ? (
-          <UserDashboard />
-        ) : (
-          <ConnectWalletPage />
-        )}
+        {address ? <UserDashboard /> : <ConnectWalletPage />}
       </div>
     </div>
   );
