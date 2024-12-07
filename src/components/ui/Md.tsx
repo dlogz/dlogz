@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 
@@ -14,29 +14,54 @@ const MDPreview = dynamic(
   { ssr: false }
 );
 
+interface BlogPost {
+  id: string;
+  title: string;
+  content: string;
+  date: string;
+}
+
 export default function Md() {
   const [content, setContent] = useState(
     "# Welcome to your Markdown Blog\n\nStart writing here..."
   );
   const [title, setTitle] = useState("");
+  const [posts, setPosts] = useState<BlogPost[]>([]);
+
+  // Load posts from localStorage on component mount
+  useEffect(() => {
+    const savedPosts = localStorage.getItem("blog-posts");
+    if (savedPosts) {
+      setPosts(JSON.parse(savedPosts));
+    }
+  }, []);
 
   const handlePublish = async () => {
     try {
-      const response = await fetch("/api/posts", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ content, title }),
-      });
-
-      if (response.ok) {
-        alert("Post published successfully!");
-      } else {
-        throw new Error("Failed to publish post");
+      if (!title.trim()) {
+        alert("Please enter a title for your post");
+        return;
       }
-    } catch (error) {
-      alert("Error publishing post: " + error.message);
+
+      const newPost: BlogPost = {
+        id: Date.now().toString(),
+        title: title.trim(),
+        content,
+        date: new Date().toISOString(),
+      };
+
+      const updatedPosts = [...posts, newPost];
+      localStorage.setItem("blog-posts", JSON.stringify(updatedPosts));
+      setPosts(updatedPosts);
+
+      // Reset form
+      setTitle("");
+      setContent("# Welcome to your Markdown Blog\n\nStart writing here...");
+      alert("Post published successfully!");
+    } catch (error: unknown) {
+      const errorMessage =
+        error instanceof Error ? error.message : "An unknown error occurred";
+      alert("Error publishing post: " + errorMessage);
     }
   };
 
@@ -71,6 +96,14 @@ export default function Md() {
             >
               Publish
             </motion.button>
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => (window.location.href = "/blog")}
+              className="px-6 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors"
+            >
+              View All Posts
+            </motion.button>
           </div>
         </header>
 
@@ -85,16 +118,41 @@ export default function Md() {
                 value={content}
                 onChange={(val) => setContent(val || "")}
                 height="100%"
+                previewWidth="100vh"
                 enablePreview
               />
             </div>
           </div>
-          <div className="w-full h-full overflow-auto bg-white dark:bg-gray-800 rounded-lg p-6 shadow-lg">
-            <div data-color-mode="light" className="dark:hidden">
-              <MDPreview />
+          <div className="flex flex-col w-full h-full overflow-auto">
+            <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-lg mb-4">
+              <div data-color-mode="light" className="dark:hidden">
+                <MDPreview source={content} />
+              </div>
+              <div data-color-mode="dark" className="hidden dark:block">
+                <MDPreview source={content} />
+              </div>
             </div>
-            <div data-color-mode="dark" className="hidden dark:block">
-              <MDPreview />
+
+            {/* Published Posts Section */}
+            <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-lg">
+              <h2 className="text-xl font-bold mb-4 text-gray-800 dark:text-white">
+                Published Posts
+              </h2>
+              <div className="space-y-4">
+                {posts.map((post) => (
+                  <div
+                    key={post.id}
+                    className="border-b border-gray-200 dark:border-gray-700 pb-4"
+                  >
+                    <h3 className="text-lg font-semibold text-gray-800 dark:text-white">
+                      {post.title}
+                    </h3>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                      {new Date(post.date).toLocaleDateString()}
+                    </p>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </motion.div>
