@@ -5,6 +5,7 @@ import { USER_CONTRACT_ABI } from "@/contracts/usercontract.abi";
 import { sepolia } from "wagmi/chains";
 import { deserialize, packGroth16Proof } from "@anon-aadhaar/core";
 import { toast } from "sonner";
+import { Button } from "../ui/button";
 
 interface AnonVerificationProps {
     userContract: `0x${string}`
@@ -36,16 +37,16 @@ export default function AnonVerification({ userContract }: AnonVerificationProps
                     address: userContract as `0x${string}`,
                     chain: sepolia,
                     args: [
-                        anonProof.proof.nullifierSeed,
-                        anonProof.proof.nullifier,
-                        anonProof.proof.timestamp,
+                        BigInt(anonProof.proof.nullifierSeed),
+                        BigInt(anonProof.proof.nullifier),
+                        BigInt(anonProof.proof.timestamp),
                         [
-                            anonProof.proof.ageAbove18,
-                            anonProof.proof.gender,
-                            anonProof.proof.pincode,
-                            anonProof.proof.state,
+                            BigInt(anonProof.proof.ageAbove18),
+                            BigInt(anonProof.proof.gender),
+                            BigInt(anonProof.proof.pincode),
+                            BigInt(anonProof.proof.state),
                         ],
-                        packedGroth16Proof
+                        packedGroth16Proof.map(BigInt)
                     ] as any,
                     gas: BigInt(500000),
                     gasPrice: BigInt(500000),
@@ -62,6 +63,7 @@ export default function AnonVerification({ userContract }: AnonVerificationProps
                 <h1 className="text-2xl font-bold mb-6">
                     Anon Proof is ready!
                 </h1>
+                <Button onClick={() => localStorage.removeItem("anonAadhaar")}>Refresh Proof</Button>
                 <PromiseButton onClick={broadcastProof}>
                     Broadcast to verify your account
                 </PromiseButton>
@@ -72,7 +74,7 @@ export default function AnonVerification({ userContract }: AnonVerificationProps
     return (
         <div className="flex flex-col w-full self-center max-w-screen-xl px-10">
             <LaunchProveModal
-                nullifierSeed={1234}
+                nullifierSeed={BigInt(process.env.NEXT_PUBLIC_NULLIFIER_SEED!)}
                 fieldsToReveal={["revealAgeAbove18"]}
                 buttonTitle="Verify your Age"
             />

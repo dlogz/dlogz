@@ -1,4 +1,3 @@
-import { Abi } from "viem";
 
 export const USER_CONTRACT_ABI = [
     {

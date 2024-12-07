@@ -35,16 +35,17 @@ contract UserContract {
     /// @param revealArray: Array of the values used as input for the proof generation.
     /// @param groth16Proof: SNARK Groth16 proof.
     function verifyUserProof(
-        uint nullifierSeed,
-        uint nullifier,
-        uint timestamp,
-        uint[4] memory revealArray,
-        uint[8] memory groth16Proof
+        uint256 nullifierSeed,
+        uint256 nullifier,
+        uint256 timestamp,
+        uint256[4] memory revealArray,
+        uint256[8] memory groth16Proof
     ) public {
         require(
             msg.sender == userAddress || msg.sender == adminAddress,
             "UserContract: Only user or admin can verify"
         );
+        emit UserVerified(msg.sender, block.timestamp); // Debug statement to log user verification
         require(!isVerified, "UserContract: User already verified");
 
         require(
