@@ -2,6 +2,7 @@ import { useAccount, useReadContract } from "wagmi";
 import { FACTORY_ABI } from '@/contracts/factory.abi';
 import { sepolia } from "wagmi/chains";
 import { USER_CONTRACT_ABI } from "@/contracts/usercontract.abi";
+import { ETH_NULL_MEMORY } from "../wagmi/config";
 
 export const useGetUserContract = () => {
     const { address } = useAccount();
@@ -11,6 +12,12 @@ export const useGetUserContract = () => {
         chainId: sepolia.id,
         functionName: 'getUserContract',
         args: [address as `0x${string}`],
+        query: {
+            refetchInterval: ({ state }) => {
+                if (state.data !== ETH_NULL_MEMORY) return false;
+                return 1000;
+            }
+        }
     })
 };
 
@@ -22,6 +29,13 @@ export const useGetUserVerified = (userContract: string) => {
         chainId: sepolia.id,
         functionName: 'isUserVerified',
         args: [],
+        query: {
+            refetchInterval: ({ state }) => {
+                if (state.data) return false;
+                return 1000;
+            }
+        }
+
     })
 
     return { data: data, isLoading, isError };

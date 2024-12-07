@@ -8,8 +8,11 @@ contract Factory {
     mapping(address => UserContract) public userContracts;
     address[] public allUsers; // Array to store all user addresses
 
-    constructor() {
+    address public anonAadhaarVerifierAddr;
+
+    constructor(address _anonAadhaarVerifierAddr) {
         admin = msg.sender;
+        anonAadhaarVerifierAddr = _anonAadhaarVerifierAddr;
     }
 
     function createUserContract() external {
@@ -18,7 +21,11 @@ contract Factory {
             "User contract already exists for this address"
         );
 
-        UserContract newUserContract = new UserContract(msg.sender, admin);
+        UserContract newUserContract = new UserContract(
+            msg.sender,
+            admin,
+            anonAadhaarVerifierAddr
+        );
         userContracts[msg.sender] = newUserContract;
         allUsers.push(msg.sender); // Add user address to the array
     }

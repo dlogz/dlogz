@@ -6,6 +6,7 @@ import "@anon-aadhaar/contracts/interfaces/IAnonAadhaar.sol";
 contract UserContract {
     address public adminAddress;
     address public userAddress;
+    address public anonAadhaarVerifierAddr;
 
     uint256 public createdTimestamp = block.timestamp;
 
@@ -13,12 +14,17 @@ contract UserContract {
     bool public isVerified = false;
     bool public isAdult = false;
     uint256 public verificationTimestamp;
-    uint256 public userNullifier;
+    uint public userNullifier;
 
     // Constructor to initialize the contract
-    constructor(address _userAddress, address _adminAddress) {
+    constructor(
+        address _userAddress,
+        address _adminAddress,
+        address _anonAadhaarVerifierAddr
+    ) {
         userAddress = _userAddress;
         adminAddress = _adminAddress;
+        anonAadhaarVerifierAddr = _anonAadhaarVerifierAddr;
     }
 
     /// @dev Convert an address to uint256, used to check against signal.
@@ -35,21 +41,20 @@ contract UserContract {
     /// @param revealArray: Array of the values used as input for the proof generation.
     /// @param groth16Proof: SNARK Groth16 proof.
     function verifyUserProof(
-        uint256 nullifierSeed,
-        uint256 nullifier,
-        uint256 timestamp,
-        uint256[4] memory revealArray,
-        uint256[8] memory groth16Proof
+        uint nullifierSeed,
+        uint nullifier,
+        uint timestamp,
+        uint[4] memory revealArray,
+        uint[8] memory groth16Proof
     ) public {
         require(
             msg.sender == userAddress || msg.sender == adminAddress,
             "UserContract: Only user or admin can verify"
         );
-        emit UserVerified(msg.sender, block.timestamp); // Debug statement to log user verification
         require(!isVerified, "UserContract: User already verified");
 
         require(
-            IAnonAadhaar(userAddress).verifyAnonAadhaarProof(
+            IAnonAadhaar(anonAadhaarVerifierAddr).verifyAnonAadhaarProof(
                 nullifierSeed,
                 nullifier,
                 timestamp,
@@ -65,8 +70,6 @@ contract UserContract {
         userNullifier = nullifier;
 
         isAdult = revealArray[0] == 1;
-
-        emit UserVerified(msg.sender, block.timestamp);
     }
 
     // Function to get user registration timestamp
@@ -82,7 +85,4 @@ contract UserContract {
     function isUserAdult() public view returns (bool) {
         return isAdult;
     }
-
-    // Event emitted when the user is registered
-    event UserVerified(address indexed user, uint256 timestamp);
 }

@@ -1,6 +1,6 @@
 import { LaunchProveModal, useAnonAadhaar } from "@anon-aadhaar/react";
 import PromiseButton from "../ui/PromiseButton";
-import { useWriteContract } from "wagmi";
+import { useAccount, useWriteContract } from "wagmi";
 import { USER_CONTRACT_ABI } from "@/contracts/usercontract.abi";
 import { sepolia } from "wagmi/chains";
 import { deserialize, packGroth16Proof } from "@anon-aadhaar/core";
@@ -13,6 +13,7 @@ interface AnonVerificationProps {
 
 export default function AnonVerification({ userContract }: AnonVerificationProps) {
     console.log(userContract, "User Contract");
+    const { address } = useAccount();
 
     const [anonAadhaar] = useAnonAadhaar();
     const { writeContractAsync } = useWriteContract()
@@ -37,16 +38,16 @@ export default function AnonVerification({ userContract }: AnonVerificationProps
                     address: userContract as `0x${string}`,
                     chain: sepolia,
                     args: [
-                        BigInt(anonProof.proof.nullifierSeed),
-                        BigInt(anonProof.proof.nullifier),
-                        BigInt(anonProof.proof.timestamp),
+                        anonProof.proof.nullifierSeed,
+                        anonProof.proof.nullifier,
+                        anonProof.proof.timestamp,
                         [
-                            BigInt(anonProof.proof.ageAbove18),
-                            BigInt(anonProof.proof.gender),
-                            BigInt(anonProof.proof.pincode),
-                            BigInt(anonProof.proof.state),
+                            anonProof.proof.ageAbove18,
+                            anonProof.proof.gender,
+                            anonProof.proof.pincode,
+                            anonProof.proof.state,
                         ],
-                        packedGroth16Proof.map(BigInt)
+                        packedGroth16Proof
                     ] as any,
                     gas: BigInt(500000),
                     gasPrice: BigInt(500000),
@@ -74,6 +75,7 @@ export default function AnonVerification({ userContract }: AnonVerificationProps
     return (
         <div className="flex flex-col w-full self-center max-w-screen-xl px-10">
             <LaunchProveModal
+                signal={address}
                 nullifierSeed={BigInt(process.env.NEXT_PUBLIC_NULLIFIER_SEED!)}
                 fieldsToReveal={["revealAgeAbove18"]}
                 buttonTitle="Verify your Age"
