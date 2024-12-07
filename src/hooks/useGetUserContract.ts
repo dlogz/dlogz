@@ -33,7 +33,8 @@ export const useGetUserVerified = (userContract: string) => {
             refetchInterval: ({ state }) => {
                 if (state.data) return false;
                 return 1000;
-            }
+            },
+            enabled: !!userContract
         }
 
     })

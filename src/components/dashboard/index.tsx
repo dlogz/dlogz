@@ -7,6 +7,8 @@ import { USER_CONTRACT_ABI } from "@/contracts/usercontract.abi";
 import { sepolia } from "viem/chains";
 import { sha256 } from "viem";
 import { toast } from "sonner";
+import { ETH_NULL_MEMORY } from "@/src/wagmi/config";
+import CreateUser from "../CreateUser";
 
 
 export default function UserDashboard() {
@@ -14,6 +16,8 @@ export default function UserDashboard() {
     const { data: userContract, isLoading } = useGetUserContract();
     const { data: isVerified } = useGetUserVerified(userContract as `0x${string}`);
     const { writeContractAsync } = useWriteContract();
+
+    const isUserContract = !!userContract && userContract !== ETH_NULL_MEMORY;
 
     const createBlog = async () => {
         try {
@@ -38,6 +42,10 @@ export default function UserDashboard() {
 
     if (isLoading) {
         return <div className="flex flex-col self-center justify-self-center">Loading...</div>
+    }
+
+    if (!isUserContract) {
+        return <CreateUser />
     }
 
 
