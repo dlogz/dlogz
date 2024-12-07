@@ -48,6 +48,7 @@ export default function AnonVerification({ userContract }: AnonVerificationProps
                             anonProof.proof.state,
                         ],
                         packedGroth16Proof
+                        // @ts-nocheck
                     ] as any,
                 })
                 console.log(_tx);
