@@ -5,77 +5,103 @@ import { USER_CONTRACT_ABI } from "@/contracts/usercontract.abi";
 import { deserialize, packGroth16Proof } from "@anon-aadhaar/core";
 import { toast } from "sonner";
 import { Button } from "../ui/button";
+import { useState } from "react";
+import Terms from "../ui/Terms";
 
 interface AnonVerificationProps {
-    userContract: `0x${string}`
+  userContract: `0x${string}`;
 }
 
-export default function AnonVerification({ userContract }: AnonVerificationProps) {
-    console.log(userContract, "User Contract");
-    const { address } = useAccount();
+export default function AnonVerification({
+  userContract,
+}: AnonVerificationProps) {
+  console.log(userContract, "User Contract");
+  const { address } = useAccount();
+  const [termsChecked, setTermsChecked] = useState(false);
+  const [showProveModal, setShowProveModal] = useState(false);
+  const [anonAadhaar] = useAnonAadhaar();
+  const { writeContractAsync } = useWriteContract();
+  if (anonAadhaar.status === "logged-in") {
+    const broadcastProof = async () => {
+      try {
+        const anonProof = await deserialize(
+          anonAadhaar.anonAadhaarProofs[
+            Object.keys(anonAadhaar.anonAadhaarProofs).length - 1
+          ].pcd
+        );
+        const packedGroth16Proof = packGroth16Proof(
+          anonProof.proof.groth16Proof
+        );
 
-    const [anonAadhaar] = useAnonAadhaar();
-    const { writeContractAsync } = useWriteContract()
-
-
-    if (anonAadhaar.status === "logged-in") {
-
-        const broadcastProof = async () => {
-            try {
-
-                const anonProof = await deserialize(
-                    anonAadhaar.anonAadhaarProofs[Object.keys(anonAadhaar.anonAadhaarProofs).length - 1].pcd
-                );
-                const packedGroth16Proof = packGroth16Proof(
-                    anonProof.proof.groth16Proof
-                );
-
-                console.log(packedGroth16Proof, anonProof.proof);
-                const _tx = await writeContractAsync({
-                    abi: USER_CONTRACT_ABI,
-                    functionName: 'verifyUserProof',
-                    address: userContract as `0x${string}`,
-                    args: [
-                        anonProof.proof.nullifierSeed,
-                        anonProof.proof.nullifier,
-                        anonProof.proof.timestamp,
-                        [
-                            anonProof.proof.ageAbove18,
-                            anonProof.proof.gender,
-                            anonProof.proof.pincode,
-                            anonProof.proof.state,
-                        ],
-                        packedGroth16Proof
-                    ] as any,
-                })
-                console.log(_tx);
-            } catch (e) {
-                console.log(e);
-                toast.error("Failed to broadcast proof");
-            }
-        }
-
-        return (
-            <div className="flex flex-col w-full self-center max-w-screen-xl px-10 border rounded-md p-4">
-                <h1 className="text-2xl font-bold mb-6">
-                    Anon Proof is ready!
-                </h1>
-                <Button onClick={() => localStorage.removeItem("anonAadhaar")}>Refresh Proof</Button>
-                <PromiseButton onClick={broadcastProof}>
-                    Broadcast to verify your account
-                </PromiseButton>
-            </div>
-        )
-    }
+        console.log(packedGroth16Proof, anonProof.proof);
+        const _tx = await writeContractAsync({
+          abi: USER_CONTRACT_ABI,
+          functionName: "verifyUserProof",
+          address: userContract as `0x${string}`,
+          args: [
+            anonProof.proof.nullifierSeed,
+            anonProof.proof.nullifier,
+            anonProof.proof.timestamp,
+            [
+              anonProof.proof.ageAbove18,
+              anonProof.proof.gender,
+              anonProof.proof.pincode,
+              anonProof.proof.state,
+            ],
+            packedGroth16Proof,
+          ] as any,
+        });
+        console.log(_tx);
+      } catch (e) {
+        console.log(e);
+        toast.error("Failed to broadcast proof");
+      }
+    };
 
     return (
-        <div className="flex flex-col w-full self-center max-w-screen-xl px-10">
-            <LaunchProveModal
-                signal={address}
-                nullifierSeed={BigInt(process.env.NEXT_PUBLIC_NULLIFIER_SEED!)}
-                fieldsToReveal={["revealAgeAbove18"]}
-                buttonTitle="Verify your Age"
-            />
-        </div>
+      <div className="flex flex-col w-full self-center max-w-screen-xl px-10 border rounded-md p-4">
+        <h1 className="text-2xl font-bold mb-6">Anon Proof is ready!</h1>
+        <Button onClick={() => localStorage.removeItem("anonAadhaar")}>
+          Refresh Proof
+        </Button>
+        <PromiseButton onClick={broadcastProof}>
+          Broadcast to verify your account
+        </PromiseButton>
+      </div>
     );
+  }
+
+  return (
+    <div className="flex flex-col w-full self-center max-w-screen-xl px-10 gap-4">
+      <div className="text-center">
+        <h2 className="text-xl font-semibold mb-2">
+          Age Verification Required
+        </h2>
+        <p className="text-muted-foreground mb-4">
+          Please read and accept our terms before proceeding with age
+          verification
+        </p>
+      </div>
+
+      {
+        <div className="flex justify-center">
+          <Terms
+            termsChecked={termsChecked}
+            setTermsChecked={setTermsChecked}
+            onContinue={() => setShowProveModal(true)}
+          />
+        </div>
+      }
+      {showProveModal && (
+        <div className="flex justify-center items-center h-full w-full">
+          <LaunchProveModal
+            signal={address}
+            nullifierSeed={BigInt(process.env.NEXT_PUBLIC_NULLIFIER_SEED!)}
+            fieldsToReveal={["revealAgeAbove18"]}
+            buttonTitle="Verify your Age"
+          />
+        </div>
+      )}
+    </div>
+  );
 }

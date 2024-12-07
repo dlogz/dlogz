@@ -14,13 +14,13 @@ interface BlogPost {
 }
 
 interface MdProps {
-  onPublish: (content: string, title: string) => Promise<void>;
+  onPublish: (content: string, title: string, slug: string) => Promise<void>;
   onClose: () => void;
 }
 
 export default function Md({ onPublish, onClose }: MdProps) {
   const [content, setContent] = useState(
-    "# Welcome to your MDX Blog\n\nStart writing here..."
+    "# Welcome to your Blog\n\nStart writing here..."
   );
   const [title, setTitle] = useState("");
   const [posts, setPosts] = useState<BlogPost[]>([]);
@@ -39,10 +39,11 @@ export default function Md({ onPublish, onClose }: MdProps) {
         return;
       }
 
-      await onPublish(content, title);
+      const slug = title.toLowerCase().replace(/\s+/g, "-");
+      await onPublish(content, title, slug);
 
       setTitle("");
-      setContent("# Welcome to your MDX Blog\n\nStart writing here...");
+      setContent("# Welcome to your Blog\n\nStart writing here...");
     } catch (error: unknown) {
       const errorMessage =
         error instanceof Error ? error.message : "An unknown error occurred";

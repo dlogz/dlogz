@@ -6,7 +6,7 @@ function Footer() {
     <footer className="border-t">
       <div className="container mx-auto px-4 py-6 flex justify-between items-center">
         <p className="text-sm text-muted-foreground">
-          © 2023 DecentraLog. All rights reserved.
+          © 2025 Dlogz. All rights reserved.
         </p>
         <nav className="flex space-x-4">
           <Link

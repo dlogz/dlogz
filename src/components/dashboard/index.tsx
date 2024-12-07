@@ -36,7 +36,7 @@ export default function UserDashboard() {
   }
 
   return (
-    <div className="flex flex-col w-full self-center max-w-screen-xl px-10">
+    <div className="flex flex-col w-full self-center max-w-screen-xl min-h-96 h-full px-10">
       <div className="flex flex-row justify-between">
         <h1 className="text-2xl font-bold mb-6 flex-1">User Dashboard</h1>
         <div className="flex flex-row gap-3 items-center">
@@ -55,9 +55,11 @@ export default function UserDashboard() {
       )} */}
 
       {!isVerified && (
-        <AnonVerification userContract={userContract as `0x${string}`} />
+        <>
+          <AnonVerification userContract={userContract as `0x${string}`} />
+        </>
       )}
-
+      <></>
       <Blogs userContract={userContract as `0x${string}`} />
     </div>
   );

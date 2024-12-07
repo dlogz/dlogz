@@ -6,7 +6,7 @@ import { useCreateBlog } from "@/src/hooks/useCreateBlog";
 
 function Page() {
   const router = useRouter();
-  const { createBlog } = useCreateBlog(() => router.push("/blogs"));
+  const { createBlog } = useCreateBlog(() => router.push("/"));
 
   return (
     <div className="min-h-screen p-6">
