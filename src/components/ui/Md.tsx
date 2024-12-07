@@ -120,16 +120,17 @@ export default function Md() {
                 height="100%"
                 previewWidth="100vh"
                 enablePreview
+                className="min-h-96 h-full"
               />
             </div>
           </div>
           <div className="flex flex-col w-full h-full overflow-auto">
             <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-lg mb-4">
               <div data-color-mode="light" className="dark:hidden">
-                <MDPreview source={content} />
+                <MDPreview source={content} className="h-full min-h-screen" />
               </div>
               <div data-color-mode="dark" className="hidden dark:block">
-                <MDPreview source={content} />
+                <MDPreview source={content} className="h-full min-h-96" />
               </div>
             </div>
 
