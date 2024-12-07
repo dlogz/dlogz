@@ -4,7 +4,6 @@ import { useAccount, useWriteContract } from "wagmi";
 
 import { FACTORY_ABI } from '@/contracts/factory.abi';
 import PromiseButton from "./ui/PromiseButton";
-import { sepolia } from "wagmi/chains";
 import { useGetUserContract } from "../hooks/useGetUserContract";
 import { ETH_NULL_MEMORY } from "../wagmi/config";
 
@@ -22,7 +21,6 @@ export default function CreateUser() {
                 functionName: 'createUserContract',
                 address: process.env.NEXT_PUBLIC_FACTORY_ADDRESS! as `0x${string}`,
                 args: [],
-                chain: sepolia
             })
             console.log(_tx);
         } catch (error) {

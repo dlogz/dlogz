@@ -1,10 +1,10 @@
 import { coinbaseWallet } from "wagmi/connectors";
 import { http, createConfig } from "wagmi";
-import { sepolia } from 'wagmi/chains';
+import { baseSepolia } from 'wagmi/chains';
 
 
 export const wagmiConfig = createConfig({
-    chains: [sepolia],
+    chains: [baseSepolia],
     connectors: [
         coinbaseWallet({
             appName: 'Dlogz',
@@ -12,7 +12,7 @@ export const wagmiConfig = createConfig({
     ],
     ssr: true,
     transports: {
-        [sepolia.id]: http(),
+        [baseSepolia.id]: http(),
     },
 });
 

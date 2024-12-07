@@ -2,7 +2,6 @@ import { LaunchProveModal, useAnonAadhaar } from "@anon-aadhaar/react";
 import PromiseButton from "../ui/PromiseButton";
 import { useAccount, useWriteContract } from "wagmi";
 import { USER_CONTRACT_ABI } from "@/contracts/usercontract.abi";
-import { sepolia } from "wagmi/chains";
 import { deserialize, packGroth16Proof } from "@anon-aadhaar/core";
 import { toast } from "sonner";
 import { Button } from "../ui/button";
@@ -36,7 +35,6 @@ export default function AnonVerification({ userContract }: AnonVerificationProps
                     abi: USER_CONTRACT_ABI,
                     functionName: 'verifyUserProof',
                     address: userContract as `0x${string}`,
-                    chain: sepolia,
                     args: [
                         anonProof.proof.nullifierSeed,
                         anonProof.proof.nullifier,
