@@ -10,6 +10,8 @@ const Blogs: FC<BlogsProps> = ({ userContract }) => {
   const router = useRouter();
   const { data: blogs, isLoading, isError } = useGetUserBlogSlugs(userContract);
 
+  console.log(blogs, "blogs");
+
   const handleBlogClick = (slug: string) => {
     router.push(`/blog/${slug}`);
   };

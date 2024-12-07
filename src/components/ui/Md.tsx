@@ -1,17 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { MdxEditor } from "./MdxEditor";
 import { MdxPreview } from "./MdxPreview";
 import PromiseButton from "./PromiseButton";
 import { toast } from "sonner";
-
-interface BlogPost {
-  id: string;
-  title: string;
-  content: string;
-  date: string;
-}
 
 interface MdProps {
   onPublish: (content: string, title: string, slug: string) => Promise<void>;
@@ -23,14 +16,6 @@ export default function Md({ onPublish, onClose }: MdProps) {
     "# Welcome to your Blog\n\nStart writing here..."
   );
   const [title, setTitle] = useState("");
-  const [posts, setPosts] = useState<BlogPost[]>([]);
-
-  useEffect(() => {
-    const savedPosts = localStorage.getItem("blog-posts");
-    if (savedPosts) {
-      setPosts(JSON.parse(savedPosts));
-    }
-  }, []);
 
   const handlePublish = async () => {
     try {
@@ -80,29 +65,8 @@ export default function Md({ onPublish, onClose }: MdProps) {
           <MdxEditor value={content} onChange={setContent} className="h-full" />
         </div>
         <div className="flex flex-col w-full h-full overflow-auto">
-          <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-lg mb-4">
+          <div className="bg-white h-full dark:bg-gray-800  rounded-lg p-6 shadow-lg ">
             <MdxPreview content={content} className="h-full overflow-auto" />
-          </div>
-
-          <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-lg">
-            <h2 className="text-xl font-bold mb-4 text-gray-800 dark:text-white">
-              Published Posts
-            </h2>
-            <div className="space-y-4">
-              {posts.map((post) => (
-                <div
-                  key={post.id}
-                  className="border-b border-gray-200 dark:border-gray-700 pb-4"
-                >
-                  <h3 className="text-lg font-semibold text-gray-800 dark:text-white">
-                    {post.title}
-                  </h3>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">
-                    {new Date(post.date).toLocaleDateString()}
-                  </p>
-                </div>
-              ))}
-            </div>
           </div>
         </div>
       </div>
