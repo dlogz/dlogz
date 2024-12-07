@@ -18,7 +18,7 @@ contract Factory {
             "User contract already exists for this address"
         );
 
-        UserContract newUserContract = new UserContract(msg.sender);
+        UserContract newUserContract = new UserContract(msg.sender, admin);
         userContracts[msg.sender] = newUserContract;
         allUsers.push(msg.sender); // Add user address to the array
     }
