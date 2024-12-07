@@ -1,6 +1,6 @@
 import {
     ConnectWallet,
-    Wallet,
+    Wallet as CoinbaseWallet,
     WalletDropdown,
     WalletDropdownBasename,
     WalletDropdownFundLink,
@@ -17,12 +17,12 @@ import {
 
 
 
-export function WalletComponents() {
+export function Wallet() {
     return (
-        <Wallet>
-            <ConnectWallet>
-                <Avatar className="h-6 w-6" />
-                <Name />
+        <CoinbaseWallet>
+            <ConnectWallet className='h-10 text-sm font-bold'>
+                <Avatar className="h-4 w-4" />
+                <Name className='text-sm font-bold' />
             </ConnectWallet>
             <WalletDropdown>
                 <Identity
@@ -44,6 +44,6 @@ export function WalletComponents() {
                 <WalletDropdownFundLink />
                 <WalletDropdownDisconnect />
             </WalletDropdown>
-        </Wallet>
+        </CoinbaseWallet>
     );
 }
