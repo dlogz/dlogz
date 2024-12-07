@@ -37,6 +37,43 @@ export const useGetUserVerified = (userContract: string) => {
         }
 
     })
-
     return { data: data, isLoading, isError };
 };
+
+export const useGetUserBlogSlugs = (userContract: string) => {
+    const { data, isLoading, isError } = useReadContract({
+        abi: USER_CONTRACT_ABI,
+        address: userContract as `0x${string}`,
+        chainId: sepolia.id,
+        functionName: 'getAllBlogSlugs',
+        args: [],
+        query: {
+            refetchInterval: () => {
+                return 1000;
+            },
+            enabled: !!userContract
+        }
+    });
+
+    return { data, isLoading, isError };
+};
+
+export const useGetUserBlog = (userContract: string, slug: string) => {
+    const { data, isLoading, isError } = useReadContract({
+        abi: USER_CONTRACT_ABI,
+        address: userContract as `0x${string}`,
+        chainId: sepolia.id,
+        functionName: 'getBlogBySlug',
+        args: [slug],
+        query: {
+            refetchInterval: ({ state }) => {
+                if (state.data) return false;
+                return 1000;
+            },
+            enabled: !!slug && !!userContract
+        }
+    });
+
+    return { data, isLoading, isError };
+};
+

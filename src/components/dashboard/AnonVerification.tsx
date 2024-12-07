@@ -49,8 +49,6 @@ export default function AnonVerification({ userContract }: AnonVerificationProps
                         ],
                         packedGroth16Proof
                     ] as any,
-                    gas: BigInt(500000),
-                    gasPrice: BigInt(500000),
                 })
                 console.log(_tx);
             } catch (e) {
