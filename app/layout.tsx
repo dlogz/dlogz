@@ -1,6 +1,7 @@
 import '@coinbase/onchainkit/styles.css';
 import "./globals.css";
 import { Providers } from './Providers';
+import { Toaster } from 'sonner'
 
 export default function RootLayout({
   children,
@@ -15,6 +16,7 @@ export default function RootLayout({
       >
         <Providers>
           {children}
+          <Toaster position="bottom-right" richColors />
         </Providers>
       </body>
     </html >

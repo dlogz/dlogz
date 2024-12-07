@@ -1,7 +1,7 @@
 "use client";
 import ConnectWalletPage from "@/src/components/ConnectWallet";
+import UserDashboard from "@/src/components/dashboard";
 import Nav from "@/src/components/nav";
-import { LaunchProveModal } from "@anon-aadhaar/react";
 import { useAccount } from "wagmi";
 
 export default function Home() {
@@ -9,13 +9,9 @@ export default function Home() {
   return (
     <div className="flex flex-col">
       <Nav />
-      <div className="flex flex-col items-center justify-center h-screen">
+      <div className="flex flex-col pt-10">
         {address ? (
-          <LaunchProveModal
-            nullifierSeed={1234}
-            fieldsToReveal={["revealAgeAbove18", "revealPinCode"]}
-            buttonTitle="Verify your Age"
-          />
+          <UserDashboard />
         ) : (
           <ConnectWalletPage />
         )}

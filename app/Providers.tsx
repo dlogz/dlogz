@@ -2,18 +2,26 @@
 
 import type { ReactNode } from 'react';
 import { OnchainKitProvider } from '@coinbase/onchainkit';
-import { base } from 'wagmi/chains'; // add baseSepolia for testing
+import { sepolia } from 'wagmi/chains';
 import { AnonAadhaarProvider } from '@anon-aadhaar/react';
+import { wagmiConfig } from '@/src/wagmi/config';
+import { WagmiProvider } from 'wagmi';
+import { QueryClientProvider } from '@tanstack/react-query';
+import { queryClient } from '@/src/wagmi/query-client';
 
 export function Providers(props: { children: ReactNode }) {
     return (
-        <OnchainKitProvider
-            apiKey={process.env.NEXT_PUBLIC_ONCHAINKIT_API_KEY}
-            chain={base} // add baseSepolia for testing
-        >
-            <AnonAadhaarProvider _useTestAadhaar={true}>
-                {props.children}
-            </AnonAadhaarProvider>
-        </OnchainKitProvider>
+        <WagmiProvider config={wagmiConfig}>
+            <QueryClientProvider client={queryClient}>
+                <OnchainKitProvider
+                    apiKey={process.env.NEXT_PUBLIC_ONCHAINKIT_API_KEY}
+                    chain={sepolia}
+                >
+                    <AnonAadhaarProvider _useTestAadhaar={true}>
+                        {props.children}
+                    </AnonAadhaarProvider>
+                </OnchainKitProvider>
+            </QueryClientProvider>
+        </WagmiProvider>
     );
 }
