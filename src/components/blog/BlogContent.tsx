@@ -38,6 +38,7 @@ export const BlogContent = ({ slug }: BlogContentProps) => {
   const { data: userContract } = useGetUserContract();
   const { data: userBlog } = useGetUserBlog(userContract || "", slug);
   const { data: blog, isLoading, error } = useGetBlog(userBlog?.blobId || "");
+  console.log(blog, "blog");
 
   if (isLoading) {
     return (
@@ -82,11 +83,26 @@ export const BlogContent = ({ slug }: BlogContentProps) => {
       className="max-w-3xl mx-auto mt-8 px-4"
     >
       <header className="mb-8">
+        {blog.thumbnail && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.1 }}
+            className="mb-6 rounded-lg overflow-hidden"
+          >
+            <img
+              src={blog.thumbnail}
+              alt={`Thumbnail for ${blog.title}`}
+              className="w-full h-[400px] object-cover"
+            />
+          </motion.div>
+        )}
+
         <motion.h1
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2 }}
-          className="text-4xl font-bold mb-4 bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent"
+          className="text-4xl font-bold mb-4 bg-gradient-to-r from-purple-900 to-green-600 bg-clip-text text-transparent"
         >
           {blog.title}
         </motion.h1>
@@ -186,7 +202,7 @@ export const BlogContent = ({ slug }: BlogContentProps) => {
         <MdPreview>{blog.content}</MdPreview>
       </motion.div>
 
-      <motion.div
+      {/* <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.7 }}
@@ -198,7 +214,7 @@ export const BlogContent = ({ slug }: BlogContentProps) => {
           attestations will be implemented using True Network attestation
           service.
         </p>
-      </motion.div>
+      </motion.div> */}
     </motion.article>
   );
 };

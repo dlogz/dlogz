@@ -4,6 +4,8 @@ interface BlogData {
   title: string;
   content: string;
   timestamp: string;
+  thumbnail: string;
+  heading: string;
 }
 
 export const useGetBlog = (slug: string) => {

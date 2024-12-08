@@ -9,12 +9,20 @@ export const useCreateBlog = (onSuccess?: () => void) => {
   const { data: userContract } = useGetUserContract();
   const { writeContractAsync } = useWriteContract();
 
-  const createBlog = async (content: string, title: string, slug: string) => {
+  const createBlog = async (
+    content: string,
+    title: string,
+    slug: string,
+    heading: string,
+    thumbnail: string
+  ) => {
     try {
       const blogData = {
         title,
         content,
         timestamp: new Date().toISOString(),
+        thumbnail,
+        heading,
       };
       const stringifyBlogData = JSON.stringify(blogData);
 
