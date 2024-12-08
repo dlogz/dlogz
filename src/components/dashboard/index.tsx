@@ -1,6 +1,7 @@
 import {
     useGetUserContract,
     useGetUserVerified,
+    useGetUserZkContract,
 } from "@/src/hooks/useGetUserContract";
 import AnonVerification from "./AnonVerification";
 import Blogs from "./Blogs";
@@ -9,17 +10,19 @@ import { ETH_NULL_MEMORY } from "@/src/wagmi/config";
 import CreateUser from "../CreateUser";
 import Link from "next/link";
 import { Button } from "../ui/button";
+import LinkZK from "../LinkZK";
 // import Md from "../ui/Md";
 // import { useState } from "react";
 // import { useCreateBlog } from "@/src/hooks/useCreateBlog";
 
 export default function UserDashboard() {
     const { data: userContract, isLoading } = useGetUserContract();
+    const { data: zkContract, isLoading: isZkLoading } = useGetUserZkContract(userContract as `0x${string}`);
+    console.log(zkContract, "ZK");
     const { data: isVerified } = useGetUserVerified(
         userContract as `0x${string}`
     );
-    // const [showEditor, setShowEditor] = useState(false);
-    // const { createBlog } = useCreateBlog(() => setShowEditor(false));
+
 
     const isUserContract = !!userContract && userContract !== ETH_NULL_MEMORY;
 
@@ -43,6 +46,7 @@ export default function UserDashboard() {
                     <Link href="/create">
                         <Button>Create Blog</Button>
                     </Link>
+                    {(zkContract === ETH_NULL_MEMORY && !isZkLoading) && <LinkZK />}
                 </div>
             </div>
 
