@@ -73,10 +73,7 @@ export const useGetUserBlog = (userContract: string, slug: string) => {
         functionName: "getBlogBySlug",
         args: [slug],
         query: {
-            refetchInterval: ({ state }) => {
-                if (state.data) return false;
-                return 1000;
-            },
+            refetchInterval: 5000,
             enabled: !!slug && !!userContract,
         },
     });
