@@ -84,6 +84,24 @@ export const useGetUserBlog = (userContract: string, slug: string) => {
     return { data, isLoading, isError };
 };
 
+export const useGetAgentAddress = (userContract: string) => {
+    const { data, isLoading, isError } = useReadContract({
+        abi: USER_CONTRACT_ABI,
+        address: userContract as `0x${string}`,
+        functionName: "agentAddress",
+        args: [],
+        query: {
+            refetchInterval: ({ state }) => {
+                if (state.data) return false;
+                return 1000;
+            },
+            enabled: !!userContract,
+        },
+    });
+
+    return { data, isLoading, isError };
+};
+
 export const useGetUserZkContract = (userContract: string) => {
     const { data, isLoading, isError } = useReadContract({
         abi: USER_CONTRACT_ABI,

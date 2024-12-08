@@ -3,16 +3,25 @@
 import { useGetBlog } from "@/src/hooks/useGetBlog";
 import { Skeleton } from "../ui/skeleton";
 import {
+  useGetAgentAddress,
   useGetUserBlog,
   useGetUserContract,
 } from "@/src/hooks/useGetUserContract";
-import { MdPreview } from "../ui/MdPreview";
-import { ThumbsUp, ThumbsDown, Eye, Award, Star, Share2 } from "lucide-react";
+
+import { ThumbsUp, ThumbsDown, Eye, Award, Star, Share2, Clock, Book, Hash } from "lucide-react";
 import { Badge } from "../ui/badge";
 import { motion } from "framer-motion";
 import { Button } from "../ui/button";
 import { usePublishBlog } from "@/src/hooks/usePublishBlog";
 import { Loader2 } from "lucide-react";
+import PromiseButton from "../ui/PromiseButton";
+import { useUpdateMeta } from "@/src/hooks/useUpdateMeta";
+import dynamic from "next/dynamic";
+const MdPreview = dynamic(
+  () => import("@uiw/react-markdown-preview").then((mod) => mod.default),
+  { ssr: false }
+);
+
 
 const MOCK_ATTESTATIONS = {
   upvotes: 124,
@@ -42,10 +51,20 @@ export const BlogContent = ({ slug }: BlogContentProps) => {
   const { data: userBlog } = useGetUserBlog(userContract || "", slug);
   const { data: blog, isLoading, error } = useGetBlog(userBlog?.blobId || "");
   const { publishBlog, isPublishing } = usePublishBlog();
+  const { data: agentAddress } = useGetAgentAddress(userContract || "");
+  const { updateMeta, isUpdating } = useUpdateMeta();
+
+  console.log(userBlog, "Blog", agentAddress, "Agent Address");
 
   const handlePublish = async () => {
     if (userContract && slug) {
       await publishBlog(slug);
+    }
+  };
+
+  const handleUpdateMeta = async () => {
+    if (userContract && slug) {
+      await updateMeta(slug);
     }
   };
 
@@ -60,6 +79,13 @@ export const BlogContent = ({ slug }: BlogContentProps) => {
     );
   }
 
+  if (!userContract) {
+    return (
+      <div className="mx-auto mt-8 text-center flex flex-col items-center justify-center">
+        <p className="text-2xl font-bold">Please connect your wallet</p>
+      </div>
+    );
+  }
   if (error || !userBlog) {
     return (
       <motion.div
@@ -177,7 +203,6 @@ export const BlogContent = ({ slug }: BlogContentProps) => {
                 <Star className="h-5 w-5 fill-yellow-400" />
                 <span>{MOCK_ATTESTATIONS.rating}</span>
               </div>
-
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -188,6 +213,24 @@ export const BlogContent = ({ slug }: BlogContentProps) => {
               </motion.button>
             </div>
           </motion.div>
+
+          <div className="flex flex-row gap-4">
+            <p className="text-sm text-gray-500">AI Metrics (Powered by Coinbase AI Agent)</p>
+            <div className="flex items-center space-x-1">
+              <Clock className="h-5 w-5" />
+              <span>{userBlog.estimatedReadTime.toString()} min</span>
+            </div>
+
+            <div className="flex items-center space-x-1">
+              <Book className="h-5 w-5" />
+              <span>{userBlog.readabilityScore.toString()}/100</span>
+            </div>
+
+            <div className="flex items-center space-x-1">
+              <Hash className="h-5 w-5" />
+              <span>{userBlog.blobHash.slice(0, 6)}...{userBlog.blobHash.slice(-6)}</span>
+            </div>
+          </div>
 
           <motion.div
             initial={{ opacity: 0 }}
@@ -214,6 +257,9 @@ export const BlogContent = ({ slug }: BlogContentProps) => {
                 </motion.div>
               );
             })}
+            {[...userBlog?.tags, "D-Blog"].map((tag, index) => {
+              return <Badge className="h-6 text-xs" key={index}>{tag}</Badge>;
+            })}
           </motion.div>
         </div>
       </header>
@@ -224,7 +270,7 @@ export const BlogContent = ({ slug }: BlogContentProps) => {
         transition={{ delay: 0.6 }}
         className="prose prose-lg max-w-none prose-headings: prose-p: prose-a:text-blue-600"
       >
-        <MdPreview>{blog.content}</MdPreview>
+        <MdPreview source={blog.content} />
       </motion.div>
 
       {/* <motion.div
@@ -240,6 +286,12 @@ export const BlogContent = ({ slug }: BlogContentProps) => {
           service.
         </p>
       </motion.div> */}
+
+      <div className="pt-10 flex flex-row justify-end">
+        <PromiseButton className="" onClick={handleUpdateMeta} disabled={isUpdating}>
+          Reset Meta (Dev Mode)
+        </PromiseButton>
+      </div>
     </motion.article>
   );
 };

@@ -16,7 +16,7 @@ export default function RootLayout({
       <body className={`dark`}>
         <Providers>
           <Nav />
-          {children}
+          <div className="min-h-screen">{children}</div>
           <Toaster position="bottom-right" richColors />
         </Providers>
         <Footer />
