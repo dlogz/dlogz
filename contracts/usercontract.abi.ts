@@ -1,578 +1,669 @@
 export const USER_CONTRACT_ABI = [
   {
-    type: "constructor",
     inputs: [
       {
+        internalType: "address",
         name: "_userAddress",
         type: "address",
-        internalType: "address",
       },
       {
+        internalType: "address",
         name: "_adminAddress",
         type: "address",
-        internalType: "address",
       },
       {
+        internalType: "address",
         name: "_anonAadhaarVerifierAddr",
         type: "address",
-        internalType: "address",
       },
       {
+        internalType: "address",
         name: "_agentAddress",
         type: "address",
+      },
+      {
         internalType: "address",
+        name: "_zkFactoryAddr",
+        type: "address",
       },
     ],
     stateMutability: "nonpayable",
+    type: "constructor",
   },
   {
-    type: "function",
-    name: "addBlog",
+    anonymous: false,
     inputs: [
       {
-        name: "slug",
-        type: "string",
-        internalType: "string",
+        indexed: true,
+        internalType: "address",
+        name: "user",
+        type: "address",
       },
       {
+        indexed: false,
+        internalType: "string",
+        name: "slug",
+        type: "string",
+      },
+      {
+        indexed: false,
+        internalType: "string",
         name: "blobId",
         type: "string",
-        internalType: "string",
       },
       {
+        indexed: false,
+        internalType: "string",
         name: "blobHash",
         type: "string",
-        internalType: "string",
       },
-    ],
-    outputs: [],
-    stateMutability: "nonpayable",
-  },
-  {
-    type: "function",
-    name: "adminAddress",
-    inputs: [],
-    outputs: [
       {
-        name: "",
-        type: "address",
-        internalType: "address",
-      },
-    ],
-    stateMutability: "view",
-  },
-  {
-    type: "function",
-    name: "agentAddress",
-    inputs: [],
-    outputs: [
-      {
-        name: "",
-        type: "address",
-        internalType: "address",
-      },
-    ],
-    stateMutability: "view",
-  },
-  {
-    type: "function",
-    name: "anonAadhaarVerifierAddr",
-    inputs: [],
-    outputs: [
-      {
-        name: "",
-        type: "address",
-        internalType: "address",
-      },
-    ],
-    stateMutability: "view",
-  },
-  {
-    type: "function",
-    name: "blogSlugs",
-    inputs: [
-      {
-        name: "",
-        type: "uint256",
+        indexed: false,
         internalType: "uint256",
-      },
-    ],
-    outputs: [
-      {
-        name: "",
-        type: "string",
-        internalType: "string",
-      },
-    ],
-    stateMutability: "view",
-  },
-  {
-    type: "function",
-    name: "blogs",
-    inputs: [
-      {
-        name: "",
-        type: "string",
-        internalType: "string",
-      },
-    ],
-    outputs: [
-      {
-        name: "blobId",
-        type: "string",
-        internalType: "string",
-      },
-      {
-        name: "blobHash",
-        type: "string",
-        internalType: "string",
-      },
-      {
-        name: "isPublished",
-        type: "bool",
-        internalType: "bool",
-      },
-      {
-        name: "status",
-        type: "uint8",
-        internalType: "enum UserContract.BlogStatus",
-      },
-      {
-        name: "readabilityScore",
-        type: "uint256",
-        internalType: "uint256",
-      },
-      {
-        name: "estimatedReadTime",
-        type: "uint256",
-        internalType: "uint256",
-      },
-    ],
-    stateMutability: "view",
-  },
-  {
-    type: "function",
-    name: "createdTimestamp",
-    inputs: [],
-    outputs: [
-      {
-        name: "",
-        type: "uint256",
-        internalType: "uint256",
-      },
-    ],
-    stateMutability: "view",
-  },
-  {
-    type: "function",
-    name: "getAllBlogSlugs",
-    inputs: [],
-    outputs: [
-      {
-        name: "",
-        type: "string[]",
-        internalType: "string[]",
-      },
-    ],
-    stateMutability: "view",
-  },
-  {
-    type: "function",
-    name: "getBlogBySlug",
-    inputs: [
-      {
-        name: "slug",
-        type: "string",
-        internalType: "string",
-      },
-    ],
-    outputs: [
-      {
-        name: "",
-        type: "tuple",
-        internalType: "struct UserContract.Blog",
-        components: [
-          {
-            name: "blobId",
-            type: "string",
-            internalType: "string",
-          },
-          {
-            name: "blobHash",
-            type: "string",
-            internalType: "string",
-          },
-          {
-            name: "isPublished",
-            type: "bool",
-            internalType: "bool",
-          },
-          {
-            name: "status",
-            type: "uint8",
-            internalType: "enum UserContract.BlogStatus",
-          },
-          {
-            name: "readabilityScore",
-            type: "uint256",
-            internalType: "uint256",
-          },
-          {
-            name: "estimatedReadTime",
-            type: "uint256",
-            internalType: "uint256",
-          },
-          {
-            name: "tags",
-            type: "string[]",
-            internalType: "string[]",
-          },
-        ],
-      },
-    ],
-    stateMutability: "view",
-  },
-  {
-    type: "function",
-    name: "getUserVerificationTime",
-    inputs: [],
-    outputs: [
-      {
-        name: "",
-        type: "uint256",
-        internalType: "uint256",
-      },
-    ],
-    stateMutability: "view",
-  },
-  {
-    type: "function",
-    name: "isAdult",
-    inputs: [],
-    outputs: [
-      {
-        name: "",
-        type: "bool",
-        internalType: "bool",
-      },
-    ],
-    stateMutability: "view",
-  },
-  {
-    type: "function",
-    name: "isUserAdult",
-    inputs: [],
-    outputs: [
-      {
-        name: "",
-        type: "bool",
-        internalType: "bool",
-      },
-    ],
-    stateMutability: "view",
-  },
-  {
-    type: "function",
-    name: "isUserVerified",
-    inputs: [],
-    outputs: [
-      {
-        name: "",
-        type: "bool",
-        internalType: "bool",
-      },
-    ],
-    stateMutability: "view",
-  },
-  {
-    type: "function",
-    name: "isVerified",
-    inputs: [],
-    outputs: [
-      {
-        name: "",
-        type: "bool",
-        internalType: "bool",
-      },
-    ],
-    stateMutability: "view",
-  },
-  {
-    type: "function",
-    name: "publishBlog",
-    inputs: [
-      {
-        name: "slug",
-        type: "string",
-        internalType: "string",
-      },
-    ],
-    outputs: [],
-    stateMutability: "nonpayable",
-  },
-  {
-    type: "function",
-    name: "updateAgentAddress",
-    inputs: [
-      {
-        name: "newAgentAddress",
-        type: "address",
-        internalType: "address",
-      },
-    ],
-    outputs: [],
-    stateMutability: "nonpayable",
-  },
-  {
-    type: "function",
-    name: "updateBlog",
-    inputs: [
-      {
-        name: "slug",
-        type: "string",
-        internalType: "string",
-      },
-      {
-        name: "newBlobHash",
-        type: "string",
-        internalType: "string",
-      },
-      {
-        name: "newBlobId",
-        type: "string",
-        internalType: "string",
-      },
-    ],
-    outputs: [],
-    stateMutability: "nonpayable",
-  },
-  {
-    type: "function",
-    name: "updateBlogMeta",
-    inputs: [
-      {
-        name: "slug",
-        type: "string",
-        internalType: "string",
-      },
-      {
-        name: "newTags",
-        type: "string[]",
-        internalType: "string[]",
-      },
-      {
-        name: "newStatus",
-        type: "uint8",
-        internalType: "enum UserContract.BlogStatus",
-      },
-      {
-        name: "newReadabilityScore",
-        type: "uint256",
-        internalType: "uint256",
-      },
-      {
-        name: "newEstimatedReadTime",
-        type: "uint256",
-        internalType: "uint256",
-      },
-    ],
-    outputs: [],
-    stateMutability: "nonpayable",
-  },
-  {
-    type: "function",
-    name: "userAddress",
-    inputs: [],
-    outputs: [
-      {
-        name: "",
-        type: "address",
-        internalType: "address",
-      },
-    ],
-    stateMutability: "view",
-  },
-  {
-    type: "function",
-    name: "userNullifier",
-    inputs: [],
-    outputs: [
-      {
-        name: "",
-        type: "uint256",
-        internalType: "uint256",
-      },
-    ],
-    stateMutability: "view",
-  },
-  {
-    type: "function",
-    name: "verificationTimestamp",
-    inputs: [],
-    outputs: [
-      {
-        name: "",
-        type: "uint256",
-        internalType: "uint256",
-      },
-    ],
-    stateMutability: "view",
-  },
-  {
-    type: "function",
-    name: "verifyUserProof",
-    inputs: [
-      {
-        name: "nullifierSeed",
-        type: "uint256",
-        internalType: "uint256",
-      },
-      {
-        name: "nullifier",
-        type: "uint256",
-        internalType: "uint256",
-      },
-      {
         name: "timestamp",
         type: "uint256",
-        internalType: "uint256",
-      },
-      {
-        name: "revealArray",
-        type: "uint256[4]",
-        internalType: "uint256[4]",
-      },
-      {
-        name: "groth16Proof",
-        type: "uint256[8]",
-        internalType: "uint256[8]",
       },
     ],
-    outputs: [],
-    stateMutability: "nonpayable",
-  },
-  {
-    type: "event",
     name: "BlogAdded",
-    inputs: [
-      {
-        name: "user",
-        type: "address",
-        indexed: true,
-        internalType: "address",
-      },
-      {
-        name: "slug",
-        type: "string",
-        indexed: false,
-        internalType: "string",
-      },
-      {
-        name: "blobId",
-        type: "string",
-        indexed: false,
-        internalType: "string",
-      },
-      {
-        name: "blobHash",
-        type: "string",
-        indexed: false,
-        internalType: "string",
-      },
-      {
-        name: "timestamp",
-        type: "uint256",
-        indexed: false,
-        internalType: "uint256",
-      },
-    ],
-    anonymous: false,
+    type: "event",
   },
   {
-    type: "event",
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "user",
+        type: "address",
+      },
+      {
+        indexed: false,
+        internalType: "string",
+        name: "blobId",
+        type: "string",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "timestamp",
+        type: "uint256",
+      },
+    ],
     name: "BlogPublished",
-    inputs: [
-      {
-        name: "user",
-        type: "address",
-        indexed: true,
-        internalType: "address",
-      },
-      {
-        name: "blobId",
-        type: "string",
-        indexed: false,
-        internalType: "string",
-      },
-      {
-        name: "timestamp",
-        type: "uint256",
-        indexed: false,
-        internalType: "uint256",
-      },
-    ],
-    anonymous: false,
+    type: "event",
   },
   {
-    type: "event",
-    name: "BlogUpdated",
+    anonymous: false,
     inputs: [
       {
-        name: "user",
-        type: "address",
         indexed: true,
         internalType: "address",
+        name: "user",
+        type: "address",
       },
       {
-        name: "slug",
-        type: "string",
         indexed: false,
         internalType: "string",
+        name: "slug",
+        type: "string",
       },
       {
+        indexed: false,
+        internalType: "string",
         name: "newBlobHash",
         type: "string",
-        indexed: false,
-        internalType: "string",
       },
       {
+        indexed: false,
+        internalType: "string",
         name: "newBlobId",
         type: "string",
-        indexed: false,
-        internalType: "string",
       },
       {
-        name: "timestamp",
-        type: "uint256",
         indexed: false,
         internalType: "uint256",
+        name: "timestamp",
+        type: "uint256",
       },
     ],
-    anonymous: false,
+    name: "BlogUpdated",
+    type: "event",
   },
   {
-    type: "event",
-    name: "UserVerified",
+    anonymous: false,
     inputs: [
       {
-        name: "user",
-        type: "address",
         indexed: true,
         internalType: "address",
+        name: "user",
+        type: "address",
       },
       {
-        name: "timestamp",
-        type: "uint256",
         indexed: false,
         internalType: "uint256",
+        name: "timestamp",
+        type: "uint256",
       },
       {
+        indexed: false,
+        internalType: "bool",
         name: "isAdult",
         type: "bool",
-        indexed: false,
-        internalType: "bool",
       },
     ],
-    anonymous: false,
+    name: "UserVerified",
+    type: "event",
+  },
+  {
+    inputs: [
+      {
+        internalType: "string",
+        name: "slug",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "blobId",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "blobHash",
+        type: "string",
+      },
+    ],
+    name: "addBlog",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "adminAddress",
+    outputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "agentAddress",
+    outputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "anonAadhaarVerifierAddr",
+    outputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    name: "blogSlugs",
+    outputs: [
+      {
+        internalType: "string",
+        name: "",
+        type: "string",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "string",
+        name: "",
+        type: "string",
+      },
+    ],
+    name: "blogs",
+    outputs: [
+      {
+        internalType: "string",
+        name: "blobId",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "blobHash",
+        type: "string",
+      },
+      {
+        internalType: "bool",
+        name: "isPublished",
+        type: "bool",
+      },
+      {
+        internalType: "enum UserContract.BlogStatus",
+        name: "status",
+        type: "uint8",
+      },
+      {
+        internalType: "uint256",
+        name: "readabilityScore",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "estimatedReadTime",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "createdTimestamp",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "getAllBlogSlugs",
+    outputs: [
+      {
+        internalType: "string[]",
+        name: "",
+        type: "string[]",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "string",
+        name: "slug",
+        type: "string",
+      },
+    ],
+    name: "getBlogBySlug",
+    outputs: [
+      {
+        components: [
+          {
+            internalType: "string",
+            name: "blobId",
+            type: "string",
+          },
+          {
+            internalType: "string",
+            name: "blobHash",
+            type: "string",
+          },
+          {
+            internalType: "bool",
+            name: "isPublished",
+            type: "bool",
+          },
+          {
+            internalType: "enum UserContract.BlogStatus",
+            name: "status",
+            type: "uint8",
+          },
+          {
+            internalType: "uint256",
+            name: "readabilityScore",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "estimatedReadTime",
+            type: "uint256",
+          },
+          {
+            internalType: "string[]",
+            name: "tags",
+            type: "string[]",
+          },
+          {
+            internalType: "address[]",
+            name: "likes",
+            type: "address[]",
+          },
+        ],
+        internalType: "struct UserContract.Blog",
+        name: "",
+        type: "tuple",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "getUserVerificationTime",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "string",
+        name: "slug",
+        type: "string",
+      },
+      {
+        internalType: "address",
+        name: "user",
+        type: "address",
+      },
+    ],
+    name: "hasUserLikedBlog",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "isAdult",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "isUserAdult",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "isUserVerified",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "isVerified",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "string",
+        name: "slug",
+        type: "string",
+      },
+    ],
+    name: "likeBlog",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "_zkContractAddr",
+        type: "address",
+      },
+      {
+        internalType: "address",
+        name: "userAddr",
+        type: "address",
+      },
+    ],
+    name: "linkZKContract",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "string",
+        name: "slug",
+        type: "string",
+      },
+    ],
+    name: "publishBlog",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "newAgentAddress",
+        type: "address",
+      },
+    ],
+    name: "updateAgentAddress",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "string",
+        name: "slug",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "newBlobHash",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "newBlobId",
+        type: "string",
+      },
+    ],
+    name: "updateBlog",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "string",
+        name: "slug",
+        type: "string",
+      },
+      {
+        internalType: "string[]",
+        name: "newTags",
+        type: "string[]",
+      },
+      {
+        internalType: "enum UserContract.BlogStatus",
+        name: "newStatus",
+        type: "uint8",
+      },
+      {
+        internalType: "uint256",
+        name: "newReadabilityScore",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "newEstimatedReadTime",
+        type: "uint256",
+      },
+    ],
+    name: "updateBlogMeta",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "userAddress",
+    outputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "userNullifier",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "verificationTimestamp",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "nullifierSeed",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "nullifier",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "timestamp",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256[4]",
+        name: "revealArray",
+        type: "uint256[4]",
+      },
+      {
+        internalType: "uint256[8]",
+        name: "groth16Proof",
+        type: "uint256[8]",
+      },
+    ],
+    name: "verifyUserProof",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "zkContractAddr",
+    outputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "zkFactoryAddr",
+    outputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
   },
 ] as const;

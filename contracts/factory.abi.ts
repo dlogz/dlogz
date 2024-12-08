@@ -1,147 +1,165 @@
 export const FACTORY_ABI = [
   {
-    type: "constructor",
     inputs: [
       {
+        internalType: "address",
         name: "_anonAadhaarVerifierAddr",
         type: "address",
-        internalType: "address",
       },
       {
+        internalType: "address",
         name: "_agentAddress",
         type: "address",
+      },
+      {
         internalType: "address",
+        name: "_zkFactoryAddr",
+        type: "address",
       },
     ],
     stateMutability: "nonpayable",
+    type: "constructor",
   },
   {
-    type: "function",
+    inputs: [],
     name: "admin",
-    inputs: [],
     outputs: [
       {
+        internalType: "address",
         name: "",
         type: "address",
-        internalType: "address",
       },
     ],
     stateMutability: "view",
+    type: "function",
   },
   {
-    type: "function",
+    inputs: [],
     name: "agentAddress",
-    inputs: [],
     outputs: [
       {
+        internalType: "address",
         name: "",
         type: "address",
-        internalType: "address",
       },
     ],
     stateMutability: "view",
+    type: "function",
   },
   {
-    type: "function",
-    name: "allUsers",
     inputs: [
       {
+        internalType: "uint256",
         name: "",
         type: "uint256",
-        internalType: "uint256",
       },
     ],
+    name: "allUsers",
     outputs: [
       {
+        internalType: "address",
         name: "",
         type: "address",
-        internalType: "address",
       },
     ],
     stateMutability: "view",
+    type: "function",
   },
   {
-    type: "function",
+    inputs: [],
     name: "anonAadhaarVerifierAddr",
-    inputs: [],
     outputs: [
       {
+        internalType: "address",
         name: "",
         type: "address",
-        internalType: "address",
       },
     ],
     stateMutability: "view",
+    type: "function",
   },
   {
-    type: "function",
-    name: "createUserContract",
     inputs: [],
+    name: "createUserContract",
     outputs: [],
     stateMutability: "nonpayable",
+    type: "function",
   },
   {
-    type: "function",
-    name: "getAllUsers",
     inputs: [],
+    name: "getAllUsers",
     outputs: [
       {
+        internalType: "address[]",
         name: "",
         type: "address[]",
-        internalType: "address[]",
       },
     ],
     stateMutability: "view",
+    type: "function",
   },
   {
-    type: "function",
-    name: "getUserContract",
     inputs: [
       {
+        internalType: "address",
         name: "user",
         type: "address",
-        internalType: "address",
       },
     ],
+    name: "getUserContract",
     outputs: [
       {
+        internalType: "contract UserContract",
         name: "",
         type: "address",
-        internalType: "contract UserContract",
       },
     ],
     stateMutability: "view",
+    type: "function",
   },
   {
-    type: "function",
-    name: "updateAgentAddress",
     inputs: [
       {
+        internalType: "address",
         name: "newAgentAddress",
         type: "address",
-        internalType: "address",
       },
     ],
+    name: "updateAgentAddress",
     outputs: [],
     stateMutability: "nonpayable",
+    type: "function",
   },
   {
-    type: "function",
-    name: "userContracts",
     inputs: [
       {
+        internalType: "address",
         name: "",
         type: "address",
-        internalType: "address",
       },
     ],
+    name: "userContracts",
     outputs: [
       {
+        internalType: "contract UserContract",
         name: "",
         type: "address",
-        internalType: "contract UserContract",
       },
     ],
     stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "zkFactoryAddr",
+    outputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
   },
 ] as const;
