@@ -5,8 +5,7 @@ import { USER_CONTRACT_ABI } from "@/contracts/usercontract.abi";
 import { deserialize, packGroth16Proof } from "@anon-aadhaar/core";
 import { toast } from "sonner";
 import { Button } from "../ui/button";
-import { useState } from "react";
-import Terms from "../ui/Terms";
+import { Shield, Lock, UserCheck, AlertCircle } from "lucide-react";
 
 interface AnonVerificationProps {
   userContract: `0x${string}`;
@@ -15,12 +14,10 @@ interface AnonVerificationProps {
 export default function AnonVerification({
   userContract,
 }: AnonVerificationProps) {
-  console.log(userContract, "User Contract");
   const { address } = useAccount();
-  const [termsChecked, setTermsChecked] = useState(false);
-  const [showProveModal, setShowProveModal] = useState(false);
   const [anonAadhaar] = useAnonAadhaar();
   const { writeContractAsync } = useWriteContract();
+
   if (anonAadhaar.status === "logged-in") {
     const broadcastProof = async () => {
       try {
@@ -33,7 +30,6 @@ export default function AnonVerification({
           anonProof.proof.groth16Proof
         );
 
-        console.log(packedGroth16Proof, anonProof.proof);
         const _tx = await writeContractAsync({
           abi: USER_CONTRACT_ABI,
           functionName: "verifyUserProof",
@@ -51,7 +47,10 @@ export default function AnonVerification({
             packedGroth16Proof,
           ] as any,
         });
+
         console.log(_tx);
+
+        toast.success("Proof broadcasted successfully!");
       } catch (e) {
         console.log(e);
         toast.error("Failed to broadcast proof");
@@ -59,49 +58,101 @@ export default function AnonVerification({
     };
 
     return (
-      <div className="flex flex-col w-full self-center max-w-screen-xl px-10 border rounded-md p-4">
-        <h1 className="text-2xl font-bold mb-6">Anon Proof is ready!</h1>
-        <Button onClick={() => localStorage.removeItem("anonAadhaar")}>
-          Refresh Proof
-        </Button>
-        <PromiseButton onClick={broadcastProof}>
-          Broadcast to verify your account
-        </PromiseButton>
+      <div className="flex flex-col w-full self-center max-w-screen-xl px-10 py-8 border rounded-xl bg-gradient-to-br from-purple-50 to-green-50">
+        <div className="flex items-center gap-3 mb-6">
+          <Shield className="w-8 h-8 text-green-600" />
+          <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-900 to-green-600 bg-clip-text text-transparent">
+            Anon Proof Verified!
+          </h1>
+        </div>
+
+        <div className="flex flex-col gap-6">
+          <div className="flex items-center gap-2 text-green-700">
+            <UserCheck className="w-5 h-5" />
+            <span>Age verification completed using Zero Knowledge Proofs</span>
+          </div>
+
+          <div className="flex gap-4">
+            <Button
+              onClick={() => localStorage.removeItem("anonAadhaar")}
+              variant="outline"
+              className="gap-2"
+            >
+              <Lock className="w-4 h-4" />
+              Refresh Proof
+            </Button>
+            <PromiseButton
+              onClick={broadcastProof}
+              className="gap-2 bg-gradient-to-r from-purple-600 to-green-600 hover:from-purple-700 hover:to-green-700"
+            >
+              <Shield className="w-4 h-4" />
+              Broadcast Proof
+            </PromiseButton>
+          </div>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="flex flex-col w-full self-center max-w-screen-xl px-10 gap-4">
-      <div className="text-center">
-        <h2 className="text-xl font-semibold mb-2">
+    <div className="flex flex-col w-full self-center max-w-screen-xl px-10 py-8 border rounded-xl bg-opacity-15 bg-white">
+      <div className="text-center mb-8">
+        <div className="flex justify-center mb-4">
+          <AlertCircle className="w-12 h-12 text-yellow-600" />
+        </div>
+        <h2 className="text-2xl font-bold mb-2 bg-gradient-to-r from-purple-900 to-green-600 bg-clip-text text-transparent">
           Age Verification Required
         </h2>
-        <p className="text-muted-foreground mb-4">
-          Please read and accept our terms before proceeding with age
-          verification
+        <p className="text-muted-foreground max-w-md mx-auto">
+          Verify your age privately using Anon Aadhaars Zero Knowledge Proofs.
+          Your Aadhaar data remains secure and private.
         </p>
       </div>
 
-      {
-        <div className="flex justify-center">
-          <Terms
-            termsChecked={termsChecked}
-            setTermsChecked={setTermsChecked}
-            onContinue={() => setShowProveModal(true)}
-          />
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div className="p-4 rounded-lg bg-white/50 backdrop-blur-sm">
+          <Shield className="w-6 h-6 mb-2 text-purple-600" />
+          <h3 className="text-black font-semibold mb-1">Privacy First</h3>
+          <p className="text-sm text-gray-600">
+            Zero knowledge proofs protect your personal information
+          </p>
         </div>
-      }
-      {showProveModal && (
-        <div className="flex justify-center items-center h-full w-full">
-          <LaunchProveModal
-            signal={address}
-            nullifierSeed={BigInt(process.env.NEXT_PUBLIC_NULLIFIER_SEED!)}
-            fieldsToReveal={["revealAgeAbove18"]}
-            buttonTitle="Verify your Age"
-          />
+        <div className="p-4 rounded-lg bg-white/50 backdrop-blur-sm">
+          <Lock className="w-6 h-6 mb-2 text-green-600" />
+          <h3 className="text-black font-semibold mb-1">Secure Verification</h3>
+          <p className="text-sm text-gray-600">
+            Verify age without sharing Aadhaar details
+          </p>
         </div>
-      )}
+        <div className="p-4 rounded-lg bg-white/50 backdrop-blur-sm">
+          <UserCheck className="w-6 h-6 mb-2 text-blue-600" />
+          <h3 className="text-black font-semibold mb-1">Quick Process</h3>
+          <p className="text-sm text-gray-600">
+            Simple one-time verification process
+          </p>
+        </div>
+      </div>
+
+      <div className="flex justify-center">
+        <LaunchProveModal
+          signal={address}
+          nullifierSeed={BigInt(process.env.NEXT_PUBLIC_NULLIFIER_SEED!)}
+          fieldsToReveal={["revealAgeAbove18"]}
+          buttonTitle="Verify Age with Anon Aadhaar"
+        />
+      </div>
+
+      <div className="mt-4 text-center">
+        <a
+          href="https://anon-aadhaar.pse.dev/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-sm text-gray-500 hover:text-gray-700 flex items-center justify-center gap-1"
+        >
+          Powered by Anon Aadhaar
+          <Shield className="w-4 h-4" />
+        </a>
+      </div>
     </div>
   );
 }

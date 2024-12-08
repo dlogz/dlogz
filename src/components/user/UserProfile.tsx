@@ -52,7 +52,7 @@ export const UserProfile = () => {
 
   if (isLoading) {
     return (
-      <div className="space-y-4">
+      <div className="space-y-4 container">
         <Skeleton className="h-48 w-full" />
       </div>
     );

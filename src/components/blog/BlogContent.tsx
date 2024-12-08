@@ -8,7 +8,17 @@ import {
   useGetUserContract,
 } from "@/src/hooks/useGetUserContract";
 
-import { ThumbsUp, ThumbsDown, Eye, Award, Star, Share2, Clock, Book, Hash } from "lucide-react";
+import {
+  ThumbsUp,
+  ThumbsDown,
+  Eye,
+  Award,
+  Star,
+  Share2,
+  Clock,
+  Book,
+  Hash,
+} from "lucide-react";
 import { Badge } from "../ui/badge";
 import { motion } from "framer-motion";
 import { Button } from "../ui/button";
@@ -21,7 +31,6 @@ const MdPreview = dynamic(
   () => import("@uiw/react-markdown-preview").then((mod) => mod.default),
   { ssr: false }
 );
-
 
 const MOCK_ATTESTATIONS = {
   upvotes: 124,
@@ -215,7 +224,9 @@ export const BlogContent = ({ slug }: BlogContentProps) => {
           </motion.div>
 
           <div className="flex flex-row gap-4">
-            <p className="text-sm text-gray-500">AI Metrics (Powered by Coinbase AI Agent)</p>
+            <p className="text-sm text-gray-500">
+              AI Metrics (Powered by Coinbase AI Agent)
+            </p>
             <div className="flex items-center space-x-1">
               <Clock className="h-5 w-5" />
               <span>{userBlog.estimatedReadTime.toString()} min</span>
@@ -228,7 +239,9 @@ export const BlogContent = ({ slug }: BlogContentProps) => {
 
             <div className="flex items-center space-x-1">
               <Hash className="h-5 w-5" />
-              <span>{userBlog.blobHash.slice(0, 6)}...{userBlog.blobHash.slice(-6)}</span>
+              <span>
+                {userBlog.blobHash.slice(0, 6)}...{userBlog.blobHash.slice(-6)}
+              </span>
             </div>
           </div>
 
@@ -258,7 +271,11 @@ export const BlogContent = ({ slug }: BlogContentProps) => {
               );
             })}
             {[...userBlog?.tags, "D-Blog"].map((tag, index) => {
-              return <Badge className="h-6 text-xs" key={index}>{tag}</Badge>;
+              return (
+                <Badge className="h-6 text-xs" key={index}>
+                  {tag}
+                </Badge>
+              );
             })}
           </motion.div>
         </div>
@@ -270,7 +287,7 @@ export const BlogContent = ({ slug }: BlogContentProps) => {
         transition={{ delay: 0.6 }}
         className="prose prose-lg max-w-none prose-headings: prose-p: prose-a:text-blue-600"
       >
-        <MdPreview source={blog.content} />
+        <MdPreview className={"p-4 rounded"} source={blog.content} />
       </motion.div>
 
       {/* <motion.div
@@ -288,7 +305,11 @@ export const BlogContent = ({ slug }: BlogContentProps) => {
       </motion.div> */}
 
       <div className="pt-10 flex flex-row justify-end">
-        <PromiseButton className="" onClick={handleUpdateMeta} disabled={isUpdating}>
+        <PromiseButton
+          className=""
+          onClick={handleUpdateMeta}
+          disabled={isUpdating}
+        >
           Reset Meta (Dev Mode)
         </PromiseButton>
       </div>

@@ -2,6 +2,7 @@ import { useGetUserBlogSlugs } from "@/src/hooks/useGetUserContract";
 import { FC } from "react";
 import Blog from "./Blog";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 interface BlogsProps {
   userContract: `0x${string}`;
@@ -48,9 +49,13 @@ const Blogs: FC<BlogsProps> = ({ userContract }) => {
           </div>
         ))
       ) : (
-        <div className="flex h-full w-full justify-center items-center p-8 bg-gray-50 rounded-lg">
+        <div className="flex h-full w-full justify-center items-center p-8 rounded-lg">
           <div className="text-lg text-gray-500">
-            No blogs found yet. Create your first blog!
+            No blogs found yet. +{" "}
+            <Link className="underline" href={"/create"}>
+              Create
+            </Link>{" "}
+            your first blog!
           </div>
         </div>
       )}
