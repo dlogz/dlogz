@@ -1,165 +1,165 @@
 export const FACTORY_ABI = [
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "address",
-        name: "_anonAadhaarVerifierAddr",
-        type: "address",
+        "internalType": "address",
+        "name": "_anonAadhaarVerifierAddr",
+        "type": "address"
       },
       {
-        internalType: "address",
-        name: "_agentAddress",
-        type: "address",
+        "internalType": "address",
+        "name": "_agentAddress",
+        "type": "address"
       },
       {
-        internalType: "address",
-        name: "_zkFactoryAddr",
-        type: "address",
-      },
+        "internalType": "address",
+        "name": "_zkFactoryAddr",
+        "type": "address"
+      }
     ],
-    stateMutability: "nonpayable",
-    type: "constructor",
+    "stateMutability": "nonpayable",
+    "type": "constructor"
   },
   {
-    inputs: [],
-    name: "admin",
-    outputs: [
+    "inputs": [],
+    "name": "admin",
+    "outputs": [
       {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [],
-    name: "agentAddress",
-    outputs: [
+    "inputs": [],
+    "name": "agentAddress",
+    "outputs": [
       {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
     ],
-    name: "allUsers",
-    outputs: [
+    "name": "allUsers",
+    "outputs": [
       {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [],
-    name: "anonAadhaarVerifierAddr",
-    outputs: [
+    "inputs": [],
+    "name": "anonAadhaarVerifierAddr",
+    "outputs": [
       {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [],
-    name: "createUserContract",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    "inputs": [],
+    "name": "createUserContract",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
-    inputs: [],
-    name: "getAllUsers",
-    outputs: [
+    "inputs": [],
+    "name": "getAllUsers",
+    "outputs": [
       {
-        internalType: "address[]",
-        name: "",
-        type: "address[]",
-      },
+        "internalType": "address[]",
+        "name": "",
+        "type": "address[]"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "address",
-        name: "user",
-        type: "address",
-      },
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      }
     ],
-    name: "getUserContract",
-    outputs: [
+    "name": "getUserContract",
+    "outputs": [
       {
-        internalType: "contract UserContract",
-        name: "",
-        type: "address",
-      },
+        "internalType": "contract UserContract",
+        "name": "",
+        "type": "address"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "address",
-        name: "newAgentAddress",
-        type: "address",
-      },
+        "internalType": "address",
+        "name": "newAgentAddress",
+        "type": "address"
+      }
     ],
-    name: "updateAgentAddress",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    "name": "updateAgentAddress",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
     ],
-    name: "userContracts",
-    outputs: [
+    "name": "userContracts",
+    "outputs": [
       {
-        internalType: "contract UserContract",
-        name: "",
-        type: "address",
-      },
+        "internalType": "contract UserContract",
+        "name": "",
+        "type": "address"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [],
-    name: "zkFactoryAddr",
-    outputs: [
+    "inputs": [],
+    "name": "zkFactoryAddr",
+    "outputs": [
       {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
-  },
+    "stateMutability": "view",
+    "type": "function"
+  }
 ] as const;

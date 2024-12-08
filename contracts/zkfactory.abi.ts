@@ -1,117 +1,118 @@
+
 export const ZK_FACTORY_ABI = [
   {
-    inputs: [],
-    stateMutability: "nonpayable",
-    type: "constructor",
+    "inputs": [],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
   },
   {
-    inputs: [],
-    name: "FailedDeployment",
-    type: "error",
+    "inputs": [],
+    "name": "FailedDeployment",
+    "type": "error"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "uint256",
-        name: "balance",
-        type: "uint256",
+        "internalType": "uint256",
+        "name": "balance",
+        "type": "uint256"
       },
       {
-        internalType: "uint256",
-        name: "needed",
-        type: "uint256",
-      },
+        "internalType": "uint256",
+        "name": "needed",
+        "type": "uint256"
+      }
     ],
-    name: "InsufficientBalance",
-    type: "error",
+    "name": "InsufficientBalance",
+    "type": "error"
   },
   {
-    anonymous: false,
-    inputs: [
+    "anonymous": false,
+    "inputs": [
       {
-        indexed: true,
-        internalType: "address",
-        name: "user",
-        type: "address",
+        "indexed": true,
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
       },
       {
-        indexed: true,
-        internalType: "address",
-        name: "zkContract",
-        type: "address",
-      },
+        "indexed": true,
+        "internalType": "address",
+        "name": "zkContract",
+        "type": "address"
+      }
     ],
-    name: "ZKContractCreated",
-    type: "event",
+    "name": "ZKContractCreated",
+    "type": "event"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "address",
-        name: "_userContractAddr",
-        type: "address",
-      },
+        "internalType": "address",
+        "name": "_userContractAddr",
+        "type": "address"
+      }
     ],
-    name: "createZKContract",
-    outputs: [
+    "name": "createZKContract",
+    "outputs": [
       {
-        internalType: "address",
-        name: "zkContract",
-        type: "address",
-      },
+        "internalType": "address",
+        "name": "zkContract",
+        "type": "address"
+      }
     ],
-    stateMutability: "nonpayable",
-    type: "function",
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "address",
-        name: "user",
-        type: "address",
-      },
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      }
     ],
-    name: "getUserZkContract",
-    outputs: [
+    "name": "getUserZkContract",
+    "outputs": [
       {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [],
-    name: "implementation",
-    outputs: [
+    "inputs": [],
+    "name": "implementation",
+    "outputs": [
       {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
     ],
-    name: "userZkContract",
-    outputs: [
+    "name": "userZkContract",
+    "outputs": [
       {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
-  },
+    "stateMutability": "view",
+    "type": "function"
+  }
 ] as const;

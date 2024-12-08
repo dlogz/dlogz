@@ -1,268 +1,287 @@
+
 export const ZK_ABI = [
   {
-    anonymous: false,
-    inputs: [
+    "anonymous": false,
+    "inputs": [
       {
-        indexed: true,
-        internalType: "address",
-        name: "emailAuthAddr",
-        type: "address",
+        "indexed": true,
+        "internalType": "address",
+        "name": "emailAuthAddr",
+        "type": "address"
       },
       {
-        indexed: true,
-        internalType: "string",
-        name: "command",
-        type: "string",
-      },
+        "indexed": true,
+        "internalType": "string",
+        "name": "command",
+        "type": "string"
+      }
     ],
-    name: "ReadBlogEvent",
-    type: "event",
+    "name": "LikeBlogEvent",
+    "type": "event"
   },
   {
-    inputs: [],
-    name: "commandTemplates",
-    outputs: [
+    "inputs": [],
+    "name": "commandTemplates",
+    "outputs": [
       {
-        internalType: "string[][]",
-        name: "",
-        type: "string[][]",
-      },
+        "internalType": "string[][]",
+        "name": "",
+        "type": "string[][]"
+      }
     ],
-    stateMutability: "pure",
-    type: "function",
+    "stateMutability": "pure",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "address",
-        name: "owner",
-        type: "address",
+        "internalType": "address",
+        "name": "owner",
+        "type": "address"
       },
       {
-        internalType: "bytes32",
-        name: "accountSalt",
-        type: "bytes32",
-      },
+        "internalType": "bytes32",
+        "name": "accountSalt",
+        "type": "bytes32"
+      }
     ],
-    name: "computeEmailAuthAddress",
-    outputs: [
+    "name": "computeEmailAuthAddress",
+    "outputs": [
       {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "uint256",
-        name: "templateIdx",
-        type: "uint256",
-      },
+        "internalType": "uint256",
+        "name": "templateIdx",
+        "type": "uint256"
+      }
     ],
-    name: "computeTemplateId",
-    outputs: [
+    "name": "computeTemplateId",
+    "outputs": [
       {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
     ],
-    stateMutability: "pure",
-    type: "function",
+    "stateMutability": "pure",
+    "type": "function"
   },
   {
-    inputs: [],
-    name: "dkim",
-    outputs: [
+    "inputs": [],
+    "name": "dkim",
+    "outputs": [
       {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [],
-    name: "dkimAddr",
-    outputs: [
+    "inputs": [],
+    "name": "dkimAddr",
+    "outputs": [
       {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [],
-    name: "emailAuthImplementation",
-    outputs: [
+    "inputs": [],
+    "name": "emailAuthImplementation",
+    "outputs": [
       {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [],
-    name: "emailAuthImplementationAddr",
-    outputs: [
+    "inputs": [],
+    "name": "emailAuthImplementationAddr",
+    "outputs": [
       {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        components: [
+        "components": [
           {
-            internalType: "uint256",
-            name: "templateId",
-            type: "uint256",
+            "internalType": "uint256",
+            "name": "templateId",
+            "type": "uint256"
           },
           {
-            internalType: "bytes[]",
-            name: "commandParams",
-            type: "bytes[]",
+            "internalType": "bytes[]",
+            "name": "commandParams",
+            "type": "bytes[]"
           },
           {
-            internalType: "uint256",
-            name: "skippedCommandPrefix",
-            type: "uint256",
+            "internalType": "uint256",
+            "name": "skippedCommandPrefix",
+            "type": "uint256"
           },
           {
-            components: [
+            "components": [
               {
-                internalType: "string",
-                name: "domainName",
-                type: "string",
+                "internalType": "string",
+                "name": "domainName",
+                "type": "string"
               },
               {
-                internalType: "bytes32",
-                name: "publicKeyHash",
-                type: "bytes32",
+                "internalType": "bytes32",
+                "name": "publicKeyHash",
+                "type": "bytes32"
               },
               {
-                internalType: "uint256",
-                name: "timestamp",
-                type: "uint256",
+                "internalType": "uint256",
+                "name": "timestamp",
+                "type": "uint256"
               },
               {
-                internalType: "string",
-                name: "maskedCommand",
-                type: "string",
+                "internalType": "string",
+                "name": "maskedCommand",
+                "type": "string"
               },
               {
-                internalType: "bytes32",
-                name: "emailNullifier",
-                type: "bytes32",
+                "internalType": "bytes32",
+                "name": "emailNullifier",
+                "type": "bytes32"
               },
               {
-                internalType: "bytes32",
-                name: "accountSalt",
-                type: "bytes32",
+                "internalType": "bytes32",
+                "name": "accountSalt",
+                "type": "bytes32"
               },
               {
-                internalType: "bool",
-                name: "isCodeExist",
-                type: "bool",
+                "internalType": "bool",
+                "name": "isCodeExist",
+                "type": "bool"
               },
               {
-                internalType: "bytes",
-                name: "proof",
-                type: "bytes",
-              },
+                "internalType": "bytes",
+                "name": "proof",
+                "type": "bytes"
+              }
             ],
-            internalType: "struct EmailProof",
-            name: "proof",
-            type: "tuple",
-          },
+            "internalType": "struct EmailProof",
+            "name": "proof",
+            "type": "tuple"
+          }
         ],
-        internalType: "struct EmailAuthMsg",
-        name: "emailAuthMsg",
-        type: "tuple",
+        "internalType": "struct EmailAuthMsg",
+        "name": "emailAuthMsg",
+        "type": "tuple"
       },
       {
-        internalType: "address",
-        name: "owner",
-        type: "address",
+        "internalType": "address",
+        "name": "owner",
+        "type": "address"
       },
       {
-        internalType: "uint256",
-        name: "templateIdx",
-        type: "uint256",
-      },
+        "internalType": "uint256",
+        "name": "templateIdx",
+        "type": "uint256"
+      }
     ],
-    name: "emitEmailCommand",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    "name": "emitEmailCommand",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "address",
-        name: "_userContractAddr",
-        type: "address",
+        "internalType": "address",
+        "name": "_userContractAddr",
+        "type": "address"
       },
+      {
+        "internalType": "address",
+        "name": "_userAddress",
+        "type": "address"
+      }
     ],
-    name: "initialize",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    "name": "initialize",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
-    inputs: [],
-    name: "userContractAddr",
-    outputs: [
+    "inputs": [],
+    "name": "userAddress",
+    "outputs": [
       {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [],
-    name: "verifier",
-    outputs: [
+    "inputs": [],
+    "name": "userContractAddr",
+    "outputs": [
       {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [],
-    name: "verifierAddr",
-    outputs: [
+    "inputs": [],
+    "name": "verifier",
+    "outputs": [
       {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "stateMutability": "view",
+    "type": "function"
   },
+  {
+    "inputs": [],
+    "name": "verifierAddr",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }
 ] as const;
