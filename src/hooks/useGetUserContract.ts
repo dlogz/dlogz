@@ -2,7 +2,6 @@ import { useAccount, useReadContract } from "wagmi";
 import { FACTORY_ABI } from "@/contracts/factory.abi";
 import { USER_CONTRACT_ABI } from "@/contracts/usercontract.abi";
 import { ETH_NULL_MEMORY } from "../wagmi/config";
-import { ZK_FACTORY_ABI } from "@/contracts/zkfactory.abi";
 import { ZK_ABI } from "@/contracts/zk.abi";
 
 export const useGetUserContract = () => {

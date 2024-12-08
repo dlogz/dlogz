@@ -10,7 +10,10 @@ import { Textarea } from "@/src/components/ui/textarea";
 import { MessageSquare, ThumbsUp } from "lucide-react";
 import Link from "next/link";
 
-export default function BlogPost({ params }: { params: { id: string } }) {
+export default async function Page({
+}: {
+  params: Promise<{ id: string }>
+}) {
   return (
     <div className="min-h-screen flex flex-col">
       <main className="flex-1 container mx-auto px-4 py-8">

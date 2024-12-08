@@ -79,6 +79,31 @@ export const USER_CONTRACT_ABI = [
             {
                 "indexed": false,
                 "internalType": "string",
+                "name": "slug",
+                "type": "string"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "timestamp",
+                "type": "uint256"
+            }
+        ],
+        "name": "BlogDeleted",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "user",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "string",
                 "name": "blobId",
                 "type": "string"
             },
@@ -293,6 +318,19 @@ export const USER_CONTRACT_ABI = [
         "type": "function"
     },
     {
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "slug",
+                "type": "string"
+            }
+        ],
+        "name": "deleteBlog",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
         "inputs": [],
         "name": "getAllBlogSlugs",
         "outputs": [
@@ -461,6 +499,11 @@ export const USER_CONTRACT_ABI = [
                 "internalType": "string",
                 "name": "slug",
                 "type": "string"
+            },
+            {
+                "internalType": "address",
+                "name": "user",
+                "type": "address"
             }
         ],
         "name": "likeBlog",
