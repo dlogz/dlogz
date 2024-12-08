@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import Link from "next/link";
+// import Link from "next/link";
 import ConnectWalletPage from "../ConnectWallet";
 import {
   Dialog,
@@ -37,10 +37,10 @@ export default function Landing() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
             >
-              Anonymous Blogging
+              Blockchain Liberation:
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">
                 {" "}
-                with ZK Proofs
+                Empowering Voices, Preserving Privacy
               </span>
             </motion.h1>
             <motion.p
@@ -319,12 +319,25 @@ export default function Landing() {
             <p className="text-xl text-gray-300 mb-8">
               Join the future of private, secure, and decentralized blogging
             </p>
-            <Link
-              href="/register"
-              className="inline-block bg-gradient-to-r from-purple-500 to-pink-500 text-white px-8 py-3 rounded-full font-medium hover:shadow-lg hover:shadow-purple-500/50 transition duration-300"
-            >
-              Get Started Now
-            </Link>
+            <Dialog>
+              <DialogTrigger>
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.6 }}
+                >
+                  <button className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-8 py-3 rounded-full font-medium hover:shadow-lg hover:shadow-purple-500/50 transition duration-300">
+                    Get Started
+                  </button>
+                </motion.div>
+              </DialogTrigger>
+              <DialogContent className=" max-h-96">
+                <DialogHeader>
+                  <DialogTitle>Connect Wallet</DialogTitle>
+                </DialogHeader>
+                <ConnectWalletPage />
+              </DialogContent>
+            </Dialog>
           </div>
         </motion.div>
 
