@@ -131,7 +131,7 @@ export default function Md({ onPublish, onClose }: MdProps) {
             Cancel
           </button>
           <PromiseButton onClick={handlePublish} className="btn-primary">
-            Publish
+            Create
           </PromiseButton>
         </div>
       </header>

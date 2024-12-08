@@ -10,6 +10,9 @@ import { MdPreview } from "../ui/MdPreview";
 import { ThumbsUp, ThumbsDown, Eye, Award, Star, Share2 } from "lucide-react";
 import { Badge } from "../ui/badge";
 import { motion } from "framer-motion";
+import { Button } from "../ui/button";
+import { usePublishBlog } from "@/src/hooks/usePublishBlog";
+import { Loader2 } from "lucide-react";
 
 const MOCK_ATTESTATIONS = {
   upvotes: 124,
@@ -18,7 +21,7 @@ const MOCK_ATTESTATIONS = {
   rating: 4.8,
   attestations: [
     {
-      type: "Technical Accuracy",
+      type: "Accuracy",
       count: 45,
       icon: Award,
     },
@@ -38,7 +41,13 @@ export const BlogContent = ({ slug }: BlogContentProps) => {
   const { data: userContract } = useGetUserContract();
   const { data: userBlog } = useGetUserBlog(userContract || "", slug);
   const { data: blog, isLoading, error } = useGetBlog(userBlog?.blobId || "");
-  console.log(blog, "blog");
+  const { publishBlog, isPublishing } = usePublishBlog();
+
+  const handlePublish = async () => {
+    if (userContract && slug) {
+      await publishBlog(slug);
+    }
+  };
 
   if (isLoading) {
     return (
@@ -111,7 +120,7 @@ export const BlogContent = ({ slug }: BlogContentProps) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3 }}
-            className=""
+            className="flex items-center justify-between"
           >
             {new Date(blog.timestamp).toLocaleDateString("en-US", {
               year: "numeric",
@@ -119,7 +128,23 @@ export const BlogContent = ({ slug }: BlogContentProps) => {
               day: "numeric",
             })}
           </motion.time>
-
+          {!userBlog?.isPublished && userContract && (
+            <Button
+              onClick={handlePublish}
+              disabled={isPublishing}
+              variant="outline"
+              className="ml-2"
+            >
+              {isPublishing ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Publishing...
+                </>
+              ) : (
+                "Publish"
+              )}
+            </Button>
+          )}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
